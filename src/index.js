@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 
 const app = express()
 const port = 3000
-mongoose.connect('mongodb+srv://Thunder1932:<password>@starwars-api.cblz8gj.mongodb.net/?retryWrites=true&w=majority&appName=Starwars-API')
+mongoose.connect('mongodb+srv://Thunder1932:6ABZ8DTvIqpp7QNs@starwars-api.cblz8gj.mongodb.net/?retryWrites=true&w=majority&appName=Starwars-API')
 
 
 const Movie = mongoose.model('Movie', {
@@ -17,7 +17,7 @@ app.get('/', (req, res)=> {
     res.send("Hello Word")
 })
 
-app.post("/", (req, res) => {
+app.post("/", async (req, res) => {
     const movie = new Movie({
         title: req.body.title,
         description: req.body.description,
@@ -26,7 +26,8 @@ app.post("/", (req, res) => {
 
     })
 
-    movie.save()
+    await movie.save()
+    res.send(movie)
 })
 app.listen(port, () =>{
     console.log('App running')
